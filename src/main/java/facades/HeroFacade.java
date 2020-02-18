@@ -112,7 +112,7 @@ public class HeroFacade {
     }
     
     public static void main(String[] args) {
-        emf = EMF_Creator.createEntityManagerFactory(EMF_Creator.DbSelector.DEV, EMF_Creator.Strategy.CREATE);
+        emf = EMF_Creator.createEntityManagerFactory(EMF_Creator.DbSelector.DEV, EMF_Creator.Strategy.DROP_AND_CREATE);
         HeroFacade hf = HeroFacade.getHeroFacade(emf);
         hf.populateDBWithHeroes();
     }
