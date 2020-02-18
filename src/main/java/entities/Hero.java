@@ -26,25 +26,25 @@ public class Hero implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String fullName;
+    private String heroName;
     private int intelligence;
     private int strength;
     private int speed;
     private int durability;
     private int power;
     private int combat;
-    private String alterEgo;
+    private String realName;
     private String publisher;
 
     public Hero(String fullName, int intelligence, int strength, int speed, int durability, int power, int combat, String alterEgo, String publisher) {
-        this.fullName = fullName;
+        this.heroName = fullName;
         this.intelligence = intelligence;
         this.strength = strength;
         this.speed = speed;
         this.durability = durability;
         this.power = power;
         this.combat = combat;
-        this.alterEgo = alterEgo;
+        this.realName = alterEgo;
         this.publisher = publisher;
     }
 
@@ -76,8 +76,8 @@ public class Hero implements Serializable {
         return combat;
     }
 
-    public String getAlterEgo() {
-        return alterEgo;
+    public String getRealName() {
+        return realName;
     }
 
     public String getPublisher() {
@@ -89,8 +89,8 @@ public class Hero implements Serializable {
     public Hero() {
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getHeroName() {
+        return heroName;
     }
 
     public int getId() {

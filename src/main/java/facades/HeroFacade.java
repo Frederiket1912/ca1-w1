@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.TypedQuery;
+import utils.EMF_Creator;
 
 /**
  *
@@ -51,23 +53,69 @@ public class HeroFacade {
     }
 
     
-    public List<HeroDTO> addHeroes(List<Hero> heroes){
+    public HeroDTO addHero(Hero hero){
         EntityManager em = emf.createEntityManager();
-        List<HeroDTO> heroDTOs = new ArrayList();
         try {
-            for(Hero h : heroes){
                 em.getTransaction().begin();
-                em.persist(h);
+                em.persist(hero);
                 em.getTransaction().commit();
-                heroDTOs.add(new HeroDTO(h));
-            }
-            return heroDTOs;            
+            
+            return new HeroDTO(hero);            
         }finally {
             em.close();
         }
     }
     
+    public int getNumberOfHeros(){
+        EntityManager em = emf.createEntityManager();
+        try {
+            TypedQuery<Integer> num = em.createQuery("Select COUNT(h) from Hero h", Integer.class);
+            return num.getSingleResult();
+        } finally {
+            em.close();
+        }
+    }
     
+    public List<HeroDTO> allHeroes() {
+        EntityManager em = emf.createEntityManager();
+        try {
+            TypedQuery<Hero> query
+                    = em.createQuery("Select h from Hero h", Hero.class);
+            List<Hero> heroes = query.getResultList();
+            List<HeroDTO> herodtos = new ArrayList<>();
+            for (Hero h : heroes) {
+                herodtos.add(new HeroDTO(h));
+            }
+            return herodtos;
+        } finally {
+            em.close();
+        }
+    }
+    
+    public Hero populateDBWithHeroes(){
+        Hero h1 = new Hero("A-Bomb", 38, 100, 17, 80, 24, 64, "Richard Milhouse Jones", "Marvel Comics");
+        Hero h2 = new Hero("Cloak", 63, 10, 47, 64, 100, 56, "Tyrone Johnson", "Marvel Comics");
+        Hero h3 = new Hero("Daphne Powell", 38, 10, 8, 10, 56, 10, "Daphne Powell", "ABC Studios");
+        Hero h4 = new Hero("Flash", 63, 10, 100, 50, 68, 32, "Jay Garrick", "DC Comics");
+        EntityManager em = emf.createEntityManager();
+        try {
+                em.getTransaction().begin();
+                em.persist(h1);
+                em.persist(h2);
+                em.persist(h3);
+                em.persist(h4);
+                em.getTransaction().commit();  
+                return h1;
+        }finally {
+            em.close();
+        }
+    }
+    
+    public static void main(String[] args) {
+        emf = EMF_Creator.createEntityManagerFactory(EMF_Creator.DbSelector.DEV, EMF_Creator.Strategy.CREATE);
+        HeroFacade hf = HeroFacade.getHeroFacade(emf);
+        hf.populateDBWithHeroes();
+    }
 }
 
 

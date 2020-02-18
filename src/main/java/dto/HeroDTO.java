@@ -4,7 +4,7 @@ import entities.Hero;
 
 public class HeroDTO {
     private int id;
-    private String fullName;
+    private String heroName;
     private int intelligence;
     private int strength;
     private int speed;
@@ -16,7 +16,7 @@ public class HeroDTO {
     
     public HeroDTO(Hero hero) {
         this.id = hero.getId();
-        this.fullName = hero.getFullName();
+        this.heroName = hero.getHeroName();
         this.intelligence = hero.getIntelligence();
         this.strength = hero.getStrength();
         this.speed = hero.getSpeed();
@@ -30,8 +30,8 @@ public class HeroDTO {
         return id;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getHeroName() {
+        return heroName;
     }
 
     public int getIntelligence() {
