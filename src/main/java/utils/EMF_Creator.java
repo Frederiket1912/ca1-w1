@@ -31,7 +31,7 @@ public class EMF_Creator {
         DEV {
             @Override
             public String toString() {
-                return "ca1.database";
+                return "db.database";
             }
         },
         TEST {

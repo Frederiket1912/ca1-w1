@@ -14,7 +14,7 @@ public class SettingsTest {
     public void testGetDEV_DBConnection(){
         //This test is a little bit hacky since it uses a property that can be changed by users
         //Is Better than NO test
-        String dbName = Settings.getPropertyValue("ca1.database");
+        String dbName = Settings.getPropertyValue("db.database");
         assertEquals(String.format("jdbc:mysql://localhost:3307/%s",dbName), Settings.getDEV_DBConnection());
     }
     
