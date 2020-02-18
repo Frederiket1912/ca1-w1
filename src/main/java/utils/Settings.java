@@ -39,7 +39,7 @@ public class Settings {
      */
     public static String getDEV_DBConnection(){
         intializeProperties();
-        return String.format("jdbc:mysql://%s:%s/%s",props.getProperty("db.server"),props.getProperty("db.port"),props.getProperty("db.database"));
+        return String.format("jdbc:mysql://%s:%s/%s",props.getProperty("db.server"),props.getProperty("db.port"),props.getProperty("ca1.database"));
     }
     
     /**

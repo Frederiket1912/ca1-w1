@@ -13,6 +13,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
 import utils.EMF_Creator;
+import utils.Settings;
+
 
 /**
  *
@@ -20,8 +22,15 @@ import utils.EMF_Creator;
  */
 public class HeroFacade {
     private static HeroFacade instance;
-    private static EntityManagerFactory emf;
-    
+    private static EntityManagerFactory emf; // = EMF_Creator.createEntityManagerFactory(EMF_Creator.DbSelector.DEV,EMF_Creator.Strategy.DROP_AND_CREATE);
+//    private static EntityManagerFactory emf =
+//    EMF_Creator.createEntityManagerFactory(
+//                "pu",
+//                "jdbc:mysql://localhost:3307/ca1",
+//                "dev",
+//                "ax2",
+//                EMF_Creator.Strategy.CREATE);
+
     //Private Constructor to ensure Singleton
     private HeroFacade() {}
     
