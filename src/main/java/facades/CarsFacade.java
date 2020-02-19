@@ -16,8 +16,8 @@ import utils.EMF_Creator;
 public class CarsFacade {
 
     private static CarsFacade instance;
-    private static EntityManagerFactory emf;
-            //= EMF_Creator.createEntityManagerFactory(EMF_Creator.DbSelector.DEV, EMF_Creator.Strategy.CREATE);
+    private static EntityManagerFactory emf
+            = EMF_Creator.createEntityManagerFactory(EMF_Creator.DbSelector.DEV, EMF_Creator.Strategy.CREATE);
 
     //Private Constructor to ensure Singleton
     private CarsFacade() {
@@ -76,5 +76,5 @@ public class CarsFacade {
             em.close();
         }
     }
-    
+
 }
