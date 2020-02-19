@@ -52,7 +52,8 @@ public class HeroFacade {
         }       
     }
 
-    
+    // bruger ikke DTO i argumentet fordi jeg først havde tænkt mig at få fat i 
+    // heroes fra en anden API
     public HeroDTO addHero(Hero hero){
         EntityManager em = emf.createEntityManager();
         try {
@@ -65,17 +66,7 @@ public class HeroFacade {
             em.close();
         }
     }
-    
-    public int getNumberOfHeros(){
-        EntityManager em = emf.createEntityManager();
-        try {
-            TypedQuery<Integer> num = em.createQuery("Select COUNT(h) from Hero h", Integer.class);
-            return num.getSingleResult();
-        } finally {
-            em.close();
-        }
-    }
-    
+     
     public List<HeroDTO> allHeroes() {
         EntityManager em = emf.createEntityManager();
         try {
