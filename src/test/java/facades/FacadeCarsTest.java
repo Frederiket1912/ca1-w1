@@ -7,6 +7,7 @@ import utils.EMF_Creator;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.hasSize;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -87,6 +88,20 @@ public class FacadeCarsTest {
     public void testGetAllCars() {
         List<CarsDTO> allCars = facade.getAllCars();
         assertThat(allCars, hasSize(7));
+    }
+    
+    @Test
+    public void testGetManufactor() {
+        List<CarsDTO> specificCars = facade.getCarsByManufactor("Audi");
+        assertEquals(2, specificCars.size(), "Expected that 2 cars by this manufactor is in the DB");
+    }
+    
+    @Test
+    public void testAscendingAllCars() {
+        List<CarsDTO> sortedASCList = facade.getAllCars();
+        assertEquals(sortedASCList.get(0).getManufacturer(),"Audi");
+        assertEquals(sortedASCList.get(1).getManufacturer(),"Audi");
+        assertEquals(sortedASCList.get(6).getManufacturer(),"Volvo");
     }
 
 }

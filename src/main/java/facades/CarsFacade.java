@@ -16,8 +16,8 @@ import utils.EMF_Creator;
 public class CarsFacade {
 
     private static CarsFacade instance;
-    private static EntityManagerFactory emf
-            = EMF_Creator.createEntityManagerFactory(EMF_Creator.DbSelector.DEV, EMF_Creator.Strategy.CREATE);
+    private static EntityManagerFactory emf;
+            //= EMF_Creator.createEntityManagerFactory(EMF_Creator.DbSelector.DEV, EMF_Creator.Strategy.CREATE);
 
     //Private Constructor to ensure Singleton
     private CarsFacade() {
@@ -50,11 +50,28 @@ public class CarsFacade {
         }
     }
     
+    public List<CarsDTO> getCarsByManufactor (String manufacturer) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            TypedQuery<Cars> query
+                    = em.createQuery("Select c from Cars c where c.manufacturer = :manufacturer", Cars.class);
+            query.setParameter("manufacturer", manufacturer);
+            List<Cars> cars = query.getResultList();
+            List<CarsDTO> carsdto = new ArrayList<>();
+            for (Cars c : cars) {
+                carsdto.add(new CarsDTO(c));
+            }
+            return carsdto;
+        } finally {
+            em.close();
+    }
+    }
+    
     public List<CarsDTO> getAllCars() {
         EntityManager em = emf.createEntityManager();
         try {
             TypedQuery<Cars> query
-                    = em.createQuery("Select c from Cars c", Cars.class);
+                    = em.createQuery("Select c from Cars c order by c.manufacturer asc", Cars.class);
             List<Cars> cars = query.getResultList();
             List<CarsDTO> carsdto = new ArrayList<>();
             for (Cars c : cars) {
@@ -76,5 +93,11 @@ public class CarsFacade {
             em.close();
         }
     }
-
+    
+    public static void main(String[] args) {
+        CarsFacade cf = new CarsFacade();
+        emf = EMF_Creator.createEntityManagerFactory(EMF_Creator.DbSelector.DEV, EMF_Creator.Strategy.CREATE);
+        System.out.println(cf.getCarsByManufactor("BMW"));
+    }
+    
 }
