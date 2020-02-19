@@ -110,7 +110,6 @@ public class CarsResourceTest {
 //    }
     
     @Test
-    //@Ignore
     public void testGetSpecificManufactor() throws Exception {
         ArrayList expected = new ArrayList();
         expected.add("i8");
@@ -122,14 +121,5 @@ public class CarsResourceTest {
                 .body("model", equalTo(expected));
                 //.body("model", equalTo(GSON.toJson(car.getModel())));
                 //.body("model", equalTo(GSON.toJson("i8")));
-    }
-    
-    @Test
-    public void testGetSpecificManufactor1() throws Exception {
-        ArrayList test = new ArrayList();
-        test.add("i8");
-        given()
-                .contentType("application/json")
-                .get("/cars/BMW").then().log().body().and().assertThat().body("model", equalTo(test));
     }
 }
