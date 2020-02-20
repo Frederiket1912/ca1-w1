@@ -110,7 +110,7 @@ function sortByQuantityv1() {
             .then(res => res.json())
             .then(data =>
             {
-                content.innerHTML = allCars(data.sort(compareModelNamev1));
+                content.innerHTML = allCars(data.sort(compareQuantityv1));
             });
 }
 
@@ -132,8 +132,8 @@ function sortByPricev1() {
     h1content.innerHTML = "";
     h3content.innerHTML = "";
     content.innerHTML = "";
-    //let url = "https://frederiket.dk/ca1/api/cars/all";
-    let url = "http://localhost:8080/ca1/api/cars/all";
+    let url = "https://frederiket.dk/ca1/api/cars/all";
+    //let url = "http://localhost:8080/ca1/api/cars/all";
 
     fetch(url)
             .then(res => res.json())
