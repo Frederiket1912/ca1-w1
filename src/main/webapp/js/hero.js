@@ -5,10 +5,10 @@ const CONTENT = document.querySelector("#content");
 function heroesToTable(heroes) {
     var tableinfo = heroes.map(x => `<tr><td>  ${x.heroName} </td><td> ${x.intelligence} </td><td> ${x.strength} </td>
     <td>  ${x.speed} </td><td> ${x.durability} </td><td> ${x.power} </td>
-    <td>  ${x.combat} </td><td> ${x.publisher} </td>/tr>
-`);
+    <td>  ${x.combat} </td><td> ${x.publisher} </td>/tr>`);
 
-    tableinfo.unshift("<table id=\"indextable\" class=\"table\"><tr><th onclick=\"sortByLetters(0)\">Hero Name</th>\n\
+    tableinfo.unshift("<table id=\"indextable\" class=\"table\">\n\
+    <tr><th onclick=\"sortByLetters(0)\">Hero Name</th>\n\
     <th onclick=\"sortByNumbers(1)\">Intelligence</th>\n\
     <th onclick=\"sortByNumbers(2)\">Strength</th>\n\
     <th onclick=\"sortByNumbers(3)\">Speed</th>\n\
@@ -19,6 +19,21 @@ function heroesToTable(heroes) {
 
     tableinfo.push("</table>");
     return tableinfo.join('');
+}
+
+function makeHeroContent(e) {
+    e.preventDefault();
+    let url = "/ca1/api/hero/all";
+    fetch(url)
+            .then(res => res.json()) //in flow1, just do it
+            .then(data => {
+                // Inside this callback, and only here, the response data is available
+                console.log("data", data);
+                CONTENT.innerHTML = heroesToTable(data);               
+                /* data now contains the response, converted to JavaScript
+                 Observe the output from the log-output above
+                 Now, just build your DOM changes using the data*/
+            });
 }
 
 function sortByLetters(n) {
@@ -133,7 +148,7 @@ function sortByNumbers(n) {
 
 //Eventlisteners
 
-HEROPAGE.addEventListener("click", makeGroupMemberContent);
+HEROPAGE.addEventListener("click", makeHeroContent);
 
 
 
