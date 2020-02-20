@@ -1,10 +1,50 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Start Page</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+        <!--importing CSS-->
+        <link rel="stylesheet" href="css/indexcss.css">
+
+        <!-- importing javascripts -->
+
     </head>
-    <body>
-        <h1>Change or remove this page</h1>
+
+    <body onload="startUp()">
+        <div id="buttonGroup" class="btn-group btn-group-justified">
+
+            <div class="btn-group">
+                <button id="groupPage" type="button" class="btn btn-primary">Group</button>
+            </div>
+
+            <div class="btn-group">
+                <button id="jokePage" type="button" class="btn btn-primary">Jokes</button>
+            </div>
+
+            <div class="btn-group">   
+                <button id="carPage" type="button" class="btn btn-primary">Cars</button>
+            </div>
+            <div class="btn-group">   
+                <button id="heroPage" type="button" class="btn btn-primary">Heroes</button>
+            </div>
+        </div> 
+        <h1 id="h1content"></h1>
+        <h3 id="h3content"></h3>
+        <div id="content"></div>
+<!--        <div id="jokeButtons" style="display: none;">
+            <form> Joke ID: <input type="text" id="jokeId"> 
+                <input type="submit" id="jokeByIdButton" value="Get a joke">
+                <input type="submit" id="randomJokeButton" value="Get random joke">
+            </form>
+        </div>-->
+        <div id="linksDiv"> 
+            <a href="https://docs.google.com/document/d/1wlexRH9IagP5kCb9SALaGiaYKBvP3SuDBPkQvJ4lgEI">Link to group contract</a><br>
+            <a href="https://github.com/Frederiket1912/ca1-w1">Link to GitHub Repository</a>
+        </div>
+
     </body>
 </html>
