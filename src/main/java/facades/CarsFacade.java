@@ -66,7 +66,7 @@ public class CarsFacade {
             em.close();
     }
     }
-    
+        
     public List<CarsDTO> getAllCars() {
         EntityManager em = emf.createEntityManager();
         try {
