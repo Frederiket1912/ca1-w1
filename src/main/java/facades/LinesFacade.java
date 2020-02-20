@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
+import utils.EMF_Creator;
 
 /**
  *
@@ -28,7 +29,7 @@ public class LinesFacade {
      * @param _emf
      * @return an instance of this facade class.
      */
-    public static LinesFacade getFacadeExample(EntityManagerFactory _emf) {
+    public static LinesFacade getLinesFacade(EntityManagerFactory _emf) {
         if (instance == null) {
             emf = _emf;
             instance = new LinesFacade();
@@ -67,14 +68,21 @@ public class LinesFacade {
         }
     }
 
-    public Lines getLineById(int id) {
+    public List<LinesDTO> getLineById(int id) {
         EntityManager em = emf.createEntityManager();
         try {
             TypedQuery<Lines> query
                     = em.createQuery("SELECT l FROM Lines l WHERE l.id = :id", Lines.class);
-            query.setParameter("id", id);
-            Lines line = (Lines) query.getSingleResult();
-            return line;
+            query.setParameter("id", Long.valueOf(id));
+            List<Lines> line = query.getResultList();
+            List<LinesDTO> linesdto = new ArrayList<>();
+            for (Lines l : line) {
+                linesdto.add(new LinesDTO(l));
+                
+            }
+//            Lines line = (Lines) query.getSingleResult();
+//            return line;
+            return linesdto;
         } finally {
             em.close();
         }
@@ -93,6 +101,12 @@ public class LinesFacade {
         } finally {
             em.close();
         }
+    }
+    
+    public static void main(String[] args) {
+        LinesFacade lf = new LinesFacade();
+        emf = EMF_Creator.createEntityManagerFactory(EMF_Creator.DbSelector.DEV, EMF_Creator.Strategy.CREATE);
+        System.out.println(lf.getLineById(10));
     }
 
 }

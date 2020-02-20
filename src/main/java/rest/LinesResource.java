@@ -6,6 +6,7 @@ import entities.Cars;
 import facades.CarsFacade;
 import utils.EMF_Creator;
 import facades.FacadeExample;
+import facades.LinesFacade;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -18,34 +19,27 @@ import javax.ws.rs.core.MediaType;
 import utils.EMF_Creator.DbSelector;
 import utils.EMF_Creator.Strategy;
 
-@Path("cars")
-public class CarsResource {
+@Path("lines")
+public class LinesResource {
 
     private static final EntityManagerFactory EMF
             = EMF_Creator.createEntityManagerFactory(DbSelector.DEV, Strategy.CREATE);
 
-    private static final CarsFacade FACADE = CarsFacade.getCarsFacade(EMF);
+    private static final LinesFacade FACADE = LinesFacade.getLinesFacade(EMF);
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
     @GET
     @Path("all")
     @Produces({MediaType.APPLICATION_JSON})
-    public String getAllCars() {
-        return GSON.toJson(FACADE.getAllCars());
+    public String getAllLines() {
+        return GSON.toJson(FACADE.getAllLines());
     }
 
-    
     @GET
-    @Path("/{manufactor}")
+    @Path("/{id}")
     @Produces({MediaType.APPLICATION_JSON}) 
-    public String getSpecificCarByManufactor(@PathParam("manufactor") String manufactor) {
-       return GSON.toJson(FACADE.getCarsByManufactor(manufactor));
+    public String getSpecifcLineById(@PathParam("id") int id) {
+       return GSON.toJson(FACADE.getLineById(id));
     }
-    
-//    @POST
-//    @Path("/addcar/{car}")
-//    public void createCar(@QueryParam("car") Cars car) {
-//        FACADE.addCar(car);
-//    }
     
 }
