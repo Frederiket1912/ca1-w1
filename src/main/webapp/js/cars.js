@@ -12,8 +12,8 @@ function loadCarsPage() {
     linksDiv.innerHTML = "";
 
     //Show all cars
-    //let url = "https://frederiket.dk/ca1/api/cars/all";
-    let url = "http://localhost:8080/ca1/api/cars/all";
+    let url = "https://frederiket.dk/ca1/api/cars/all";
+    //let url = "http://localhost:8080/ca1/api/cars/all";
     fetch(url)
             .then(res => res.json())
             .then(data => {
@@ -46,8 +46,8 @@ function sortByYearv1() {
     h1content.innerHTML = "";
     h3content.innerHTML = "";
     content.innerHTML = "";
-    //let url = "https://frederiket.dk/ca1/api/cars/all";
-    let url = "http://localhost:8080/ca1/api/cars/all";
+    let url = "https://frederiket.dk/ca1/api/cars/all";
+    //let url = "http://localhost:8080/ca1/api/cars/all";
 
     fetch(url)
             .then(res => res.json())
@@ -75,8 +75,8 @@ function sortByModelNamev1() {
     h1content.innerHTML = "";
     h3content.innerHTML = "";
     content.innerHTML = "";
-    //let url = "https://frederiket.dk/ca1/api/cars/all";
-    let url = "http://localhost:8080/ca1/api/cars/all";
+    let url = "https://frederiket.dk/ca1/api/cars/all";
+    //let url = "http://localhost:8080/ca1/api/cars/all";
 
     fetch(url)
             .then(res => res.json())
@@ -103,8 +103,8 @@ function sortByQuantityv1() {
     h1content.innerHTML = "";
     h3content.innerHTML = "";
     content.innerHTML = "";
-    //let url = "https://frederiket.dk/ca1/api/cars/all";
-    let url = "http://localhost:8080/ca1/api/cars/all";
+    let url = "https://frederiket.dk/ca1/api/cars/all";
+    //let url = "http://localhost:8080/ca1/api/cars/all";
 
     fetch(url)
             .then(res => res.json())
