@@ -3,16 +3,14 @@ const GROUPPAGE = document.querySelector("#groupPage");
 const CONTENT = document.querySelector("#content");
 
 function groupMembersToTable() {
-    var tableinfo = `<tr><td>  Frederik Thorup </td><td> cph-ft36 </td></tr>
+    var tableinfo = `<table id=indextable class=table>
+    <tr><th onclick=sortByLetters(0)>Name</th>
+    <th onclick=sortByNumbers(1)>Student Id</th>
+    <tr><td>  Frederik Thorup </td><td> cph-ft36 </td></tr>
     <tr><td>  Frederik Braagaard </td><td> cph-fb87 </td></tr>
-    <tr><td>  Malthe Woschek </td><td> cph-mw202 </td></tr>`;
-
-    tableinfo.unshift("<table id=\"indextable\" class=\"table\">\n\
-    <tr><th onclick=\"sortByLetters(0)\">Name</th>\n\
-    <th onclick=\"sortByNumbers(1)\">Student Id</th>");
-
-    tableinfo.push("</table>");
-    return tableinfo.join('');
+    <tr><td>  Malthe Woschek </td><td> cph-mw202 </td></tr>
+    </table>`;
+    return tableinfo;
 }
 
 function makeGroupMemberContent(e){
