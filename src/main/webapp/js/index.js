@@ -140,4 +140,4 @@ function sortByNumbers(n) {
 
 //Eventlisteners
 
-GROUPPAGE.addEventListener("click", makeHeroContent);
+GROUPPAGE.addEventListener("click", makeGroupMemberContent);
