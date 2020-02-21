@@ -1,6 +1,6 @@
 //Constants for all DOM elements im manipulating
 const GROUPPAGE = document.querySelector("#groupPage");
-const CONTENT = document.querySelector("#content");
+const CONTENTS = document.querySelector("#content");
 
 function groupMembersToTable() {
     var tableinfo = `<table id=indextable class=table>
@@ -21,9 +21,9 @@ function makeGroupMemberContent(e){
     //Clear existing content
     h1content.innerHTML = "";
     h3content.innerHTML = "";
-    CONTENT.innerHTML = "";
+    CONTENTS.innerHTML = "";
     linksDiv.innerHTML = "";
-    CONTENT.innerHTML = groupMembersToTable();
+    CONTENTS.innerHTML = groupMembersToTable();
 }
 
 function sortByLetters(n) {
@@ -136,6 +136,6 @@ function sortByNumbers(n) {
     }
 }
 
-//Eventlisteners
 
-GROUPPAGE.addEventListener("click", makeGroupMemberContent);
+//Eventlisteners
+    GROUPPAGE.addEventListener("click", makeGroupMemberContent);
