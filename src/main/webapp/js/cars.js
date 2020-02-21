@@ -39,8 +39,163 @@ function createButtons() {
     let b2 = "<br><button type=\"submit\" onclick=\"sortByModelNamev1()\">Sort by model name</button>";
     let b3 = "<br><button type=\"submit\" onclick=\"sortByQuantityv1()\">Sort by Quantity</button>";
     let b4 = "<br><button type=\"submit\" onclick=\"sortByPricev1()\">Sort by Price</button>";
-    linksDiv.innerHTML = b1 + b2 + b3 + b4;
+    let filter = "<br><button type=\"submit\" onclick=\"loadFilter()\">Filter Table</button>";
+    linksDiv.innerHTML = b1 + b2 + b3 + b4 + filter;
 }
+
+function loadFilter() {
+    let linksDiv = document.querySelector("#linksDiv");
+    let option1 = "<select onchange=\"myFunction(event)\" id=\"dropdown\"><option value=\"manufacturer\">Manufacturer</option>";
+    let option2 = "<option value=\"year\">Year</option>";
+    let option3 = "<option value=\"model\">Model</option>";
+    let option4 = "<option value=\"price\">Price</option>";
+    let option5 = "<option value=\"quantity\">Quantity</option></select>";
+    let optionalmath = "<select id=\"mathsymbols\" name=\"mathsymbols\" style=\"display:none;\">";
+    let optionalmath2 = "<option value=\"greaterthan\"> > </option>";
+    let optionalmath3 = "<option value=\"smallerthan\"> < </option>";
+    let optionalmath4 = "<option value=\"equal\"> = </option> </select>";
+    let alloptions = option1 + option2 + option3 + option4 + option5;
+    let optional = optionalmath + optionalmath2 + optionalmath3 + optionalmath4;
+    let inputfield = "<input type=\"text\" name=\"filtervalue\" id=\"inputfield\" required />";
+    let searchbutton = "<button type=\"submit\" onclick=\"searchFilter()\" >Search</button>";
+    let searchbar = alloptions + optional + inputfield + searchbutton;
+    linksDiv.innerHTML = searchbar;
+}
+
+$(document).ready(function () {
+    window.myFunction = myFunction;
+    function myFunction() {
+        var mathsymbols = document.getElementById("mathsymbols").style;
+        if (document.getElementById("dropdown").value === "year" || document.getElementById("dropdown").value === "price" || document.getElementById("dropdown").value === "quantity") {
+            mathsymbols.display = "";
+        } else {
+            mathsymbols.display = "none";
+        }
+    }
+
+});
+
+function searchFilter() {
+    let url = "https://frederiket.dk/ca1/api/cars/all";
+    //let url = "http://localhost:8080/ca1/api/cars/all";
+    let inputResult = document.getElementById('inputfield').value;
+    let dropdown = document.getElementById('dropdown');
+    let mathdropdown = document.getElementById('mathsymbols');
+    var opt = getSelectedOption(dropdown);
+    //console.log("dropdown choosen =" + opt.value);
+    //console.log("input result = " + inputResult);
+    //console.log("Math = " + getSelectedOption(mathdropdown).value);
+    switch (opt.value) {
+        case "manufacturer":
+            fetch(url)
+                    .then(res => res.json())
+                    .then(data => {
+                        var filterManufacturer = data.filter(function (data) {
+                            return data.manufacturer === inputResult;
+                        });
+                        console.log(filterManufacturer);
+                        content.innerHTML = allCars(filterManufacturer);
+                    });
+            break;
+        case "year":
+            fetch(url)
+                    .then(res => res.json())
+                    .then(data => {
+                        var mathvariable = getSelectedOption(mathdropdown).value;
+                        var filterManufacturer = data.filter(function (data) {
+                            switch (mathvariable) {
+                                case "greaterthan":
+                                    return data.year > inputResult;
+                                    break;
+                                case "smallerthan":
+                                    return data.year < inputResult;
+                                    break;
+                                case "equal":
+                                    return data.year === parseInt(inputResult, 10);
+                                    break;
+                                default:
+                                    console.log("An error has occured");
+                            }
+                        });
+                        console.log(filterManufacturer);
+                        content.innerHTML = allCars(filterManufacturer);
+                    });
+            break;
+        case "model":
+            fetch(url)
+                    .then(res => res.json())
+                    .then(data => {
+                        var filterManufacturer = data.filter(function (data) {
+                            return data.model === inputResult;
+                        });
+                        console.log(filterManufacturer);
+                        content.innerHTML = allCars(filterManufacturer);
+                    });
+            break;
+        case "price":
+            fetch(url)
+                    .then(res => res.json())
+                    .then(data => {
+                        var mathvariable = getSelectedOption(mathdropdown).value;
+                        var filterManufacturer = data.filter(function (data) {
+                            switch (mathvariable) {
+                                case "greaterthan":
+                                    return data.price > inputResult;
+                                    break;
+                                case "smallerthan":
+                                    return data.price < inputResult;
+                                    break;
+                                case "equal":
+                                    return data.price === parseInt(inputResult, 10);
+                                    break;
+                                default:
+                                    console.log("An error has occured");
+                            }
+                        });
+                        console.log(filterManufacturer);
+                        content.innerHTML = allCars(filterManufacturer);
+                    });
+            break;
+        case "quantity":
+            fetch(url)
+                    .then(res => res.json())
+                    .then(data => {
+                        var mathvariable = getSelectedOption(mathdropdown).value;
+                        var filterManufacturer = data.filter(function (data) {
+                            switch (mathvariable) {
+                                case "greaterthan":
+                                    return data.quantity > inputResult;
+                                    break;
+                                case "smallerthan":
+                                    return data.quantity < inputResult;
+                                    break;
+                                case "equal":
+                                    return data.quantity === parseInt(inputResult, 10);
+                                    break;
+                                default:
+                                    console.log("An error has occured");
+                            }
+                        });
+                        console.log(filterManufacturer);
+                        content.innerHTML = allCars(filterManufacturer);
+                    });
+            break;
+        default:
+            console.log("An error has occured");
+    }
+}
+
+function getSelectedOption(option) {
+    var opt;
+    for (var i = 0, len = option.options.length; i < len; i++) {
+        opt = option.options[i];
+        if (opt.selected === true) {
+            break;
+        }
+    }
+    return opt;
+}
+
 
 function sortByYearv1() {
     h1content.innerHTML = "";
@@ -48,7 +203,6 @@ function sortByYearv1() {
     content.innerHTML = "";
     let url = "https://frederiket.dk/ca1/api/cars/all";
     //let url = "http://localhost:8080/ca1/api/cars/all";
-
     fetch(url)
             .then(res => res.json())
             .then(data =>
@@ -60,8 +214,6 @@ function sortByYearv1() {
 function compareYearv1(a, b) {
     const carA = a.year;
     const carB = b.year;
-    
-
     let comparison = 0;
     if (carA > carB) {
         comparison = 1;
@@ -77,7 +229,6 @@ function sortByModelNamev1() {
     content.innerHTML = "";
     let url = "https://frederiket.dk/ca1/api/cars/all";
     //let url = "http://localhost:8080/ca1/api/cars/all";
-
     fetch(url)
             .then(res => res.json())
             .then(data =>
@@ -89,7 +240,6 @@ function sortByModelNamev1() {
 function compareModelNamev1(a, b) {
     const carA = a.model.toUpperCase();
     const carB = b.model.toUpperCase();
-
     let comparison = 0;
     if (carA > carB) {
         comparison = 1;
@@ -105,7 +255,6 @@ function sortByQuantityv1() {
     content.innerHTML = "";
     let url = "https://frederiket.dk/ca1/api/cars/all";
     //let url = "http://localhost:8080/ca1/api/cars/all";
-
     fetch(url)
             .then(res => res.json())
             .then(data =>
@@ -118,7 +267,6 @@ function sortByQuantityv1() {
 function compareQuantityv1(a, b) {
     const carA = a.quantity;
     const carB = b.quantity;
-
     let comparison = 0;
     if (carA > carB) {
         comparison = 1;
@@ -134,7 +282,6 @@ function sortByPricev1() {
     content.innerHTML = "";
     let url = "https://frederiket.dk/ca1/api/cars/all";
     //let url = "http://localhost:8080/ca1/api/cars/all";
-
     fetch(url)
             .then(res => res.json())
             .then(data =>
@@ -146,7 +293,6 @@ function sortByPricev1() {
 function comparePricev1(a, b) {
     const carA = a.price;
     const carB = b.price;
-
     let comparison = 0;
     if (carA > carB) {
         comparison = 1;
