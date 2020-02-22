@@ -1,6 +1,7 @@
 let url = "https://frederiket.dk/ca1/api/cars/all";
 //let url = "http://localhost:8080/ca1/api/cars/all";
 let switchbutton = true;
+let allcars;
 
 function loadCarsPage() {
     //Query the 3 containers.
@@ -19,7 +20,7 @@ function loadCarsPage() {
     fetch(url)
             .then(res => res.json())
             .then(data => {
-                //console.log("data", data);
+                allcars = data;
                 content.innerHTML = allCars(data);
             });
 
@@ -84,93 +85,73 @@ function searchFilter() {
     var opt = getSelectedOption(dropdown);
     switch (opt.value) {
         case "manufacturer":
-            fetch(url)
-                    .then(res => res.json())
-                    .then(data => {
-                        var filterManufacturer = data.filter(function (data) {
-                            return data.manufacturer === inputResult;
-                        });
-                        content.innerHTML = allCars(filterManufacturer);
-                    });
+            var filterManufacturer = allcars.filter(function (data) {
+                return data.manufacturer === inputResult;
+            });
+            content.innerHTML = allCars(filterManufacturer);
             break;
         case "year":
-            fetch(url)
-                    .then(res => res.json())
-                    .then(data => {
-                        var mathvariable = getSelectedOption(mathdropdown).value;
-                        var filterManufacturer = data.filter(function (data) {
-                            switch (mathvariable) {
-                                case "greaterthan":
-                                    return data.year > inputResult;
-                                    break;
-                                case "smallerthan":
-                                    return data.year < inputResult;
-                                    break;
-                                case "equal":
-                                    return data.year === parseInt(inputResult, 10);
-                                    break;
-                                default:
-                                    console.log("An error has occured");
-                            }
-                        });
-                        content.innerHTML = allCars(filterManufacturer);
-                    });
+            var mathvariable = getSelectedOption(mathdropdown).value;
+            var filterManufacturer = allcars.filter(function (allcars) {
+                switch (mathvariable) {
+                    case "greaterthan":
+                        return allcars.year > inputResult;
+                        break;
+                    case "smallerthan":
+                        return allcars.year < inputResult;
+                        break;
+                    case "equal":
+                        return allcars.year === parseInt(inputResult, 10);
+                        break;
+                    default:
+                        console.log("An error has occured");
+                }
+            });
+            content.innerHTML = allCars(filterManufacturer);
             break;
         case "model":
-            fetch(url)
-                    .then(res => res.json())
-                    .then(data => {
-                        var filterManufacturer = data.filter(function (data) {
-                            return data.model === inputResult;
-                        });
-                        content.innerHTML = allCars(filterManufacturer);
-                    });
+            var filterManufacturer = allcars.filter(function (allcars) {
+                return allcars.model === inputResult;
+            });
+            content.innerHTML = allCars(filterManufacturer);
             break;
         case "price":
-            fetch(url)
-                    .then(res => res.json())
-                    .then(data => {
-                        var mathvariable = getSelectedOption(mathdropdown).value;
-                        var filterManufacturer = data.filter(function (data) {
-                            switch (mathvariable) {
-                                case "greaterthan":
-                                    return data.price > inputResult;
-                                    break;
-                                case "smallerthan":
-                                    return data.price < inputResult;
-                                    break;
-                                case "equal":
-                                    return data.price === parseInt(inputResult, 10);
-                                    break;
-                                default:
-                                    console.log("An error has occured");
-                            }
-                        });
-                        content.innerHTML = allCars(filterManufacturer);
-                    });
+            var mathvariable = getSelectedOption(mathdropdown).value;
+            var filterManufacturer = allcars.filter(function (allcars) {
+                switch (mathvariable) {
+                    case "greaterthan":
+                        return allcars.price > inputResult;
+                        break;
+                    case "smallerthan":
+                        return allcars.price < inputResult;
+                        break;
+                    case "equal":
+                        return allcars.price === parseInt(inputResult, 10);
+                        break;
+                    default:
+                        console.log("An error has occured");
+                }
+            });
+            content.innerHTML = allCars(filterManufacturer);
             break;
         case "quantity":
-            fetch(url)
-                    .then(res => res.json())
-                    .then(data => {
-                        var mathvariable = getSelectedOption(mathdropdown).value;
-                        var filterManufacturer = data.filter(function (data) {
-                            switch (mathvariable) {
-                                case "greaterthan":
-                                    return data.quantity > inputResult;
-                                    break;
-                                case "smallerthan":
-                                    return data.quantity < inputResult;
-                                    break;
-                                case "equal":
-                                    return data.quantity === parseInt(inputResult, 10);
-                                    break;
-                                default:
-                                    console.log("An error has occured");
-                            }
-                        });
-                        content.innerHTML = allCars(filterManufacturer);
-                    });
+            var mathvariable = getSelectedOption(mathdropdown).value;
+            var filterManufacturer = allcars.filter(function (allcars) {
+                switch (mathvariable) {
+                    case "greaterthan":
+                        return allcars.quantity > inputResult;
+                        break;
+                    case "smallerthan":
+                        return allcars.quantity < inputResult;
+                        break;
+                    case "equal":
+                        return allcars.quantity === parseInt(inputResult, 10);
+                        break;
+                    default:
+                        console.log("An error has occured");
+                }
+            });
+            content.innerHTML = allCars(filterManufacturer);
             break;
         default:
             console.log("An error has occured");
