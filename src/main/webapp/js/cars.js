@@ -1,3 +1,7 @@
+let url = "https://frederiket.dk/ca1/api/cars/all";
+//let url = "http://localhost:8080/ca1/api/cars/all";
+let switchbutton = true;
+
 function loadCarsPage() {
     //Query the 3 containers.
     let h1content = document.querySelector("#h1content");
@@ -12,12 +16,10 @@ function loadCarsPage() {
     linksDiv.innerHTML = "";
 
     //Show all cars
-    let url = "https://frederiket.dk/ca1/api/cars/all";
-    //let url = "http://localhost:8080/ca1/api/cars/all";
     fetch(url)
             .then(res => res.json())
             .then(data => {
-                console.log("data", data);
+                //console.log("data", data);
                 content.innerHTML = allCars(data);
             });
 
@@ -35,10 +37,10 @@ function allCars(cars) {
 
 function createButtons() {
     let linksDiv = document.querySelector("#linksDiv");
-    let b1 = "<button type=\"submit\" onclick=\"sortByYearv1()\">Sort by year</button>";
-    let b2 = "<br><button type=\"submit\" onclick=\"sortByModelNamev1()\">Sort by model name</button>";
-    let b3 = "<br><button type=\"submit\" onclick=\"sortByQuantityv1()\">Sort by Quantity</button>";
-    let b4 = "<br><button type=\"submit\" onclick=\"sortByPricev1()\">Sort by Price</button>";
+    let b1 = "<button type=\"submit\" onclick=\"sortByYearv2()\">Sort by Year</button>";
+    let b2 = "<br><button type=\"submit\" onclick=\"sortByModelNamev2()\">Sort by Model name</button>";
+    let b3 = "<br><button type=\"submit\" onclick=\"sortByQuantityv2()\">Sort by Quantity</button>";
+    let b4 = "<br><button type=\"submit\" onclick=\"sortByPricev2()\">Sort by Price</button>";
     let filter = "<br><button type=\"submit\" onclick=\"loadFilter()\">Filter Table</button>";
     linksDiv.innerHTML = b1 + b2 + b3 + b4 + filter;
 }
@@ -76,15 +78,10 @@ $(document).ready(function () {
 });
 
 function searchFilter() {
-    let url = "https://frederiket.dk/ca1/api/cars/all";
-    //let url = "http://localhost:8080/ca1/api/cars/all";
     let inputResult = document.getElementById('inputfield').value;
     let dropdown = document.getElementById('dropdown');
     let mathdropdown = document.getElementById('mathsymbols');
     var opt = getSelectedOption(dropdown);
-    //console.log("dropdown choosen =" + opt.value);
-    //console.log("input result = " + inputResult);
-    //console.log("Math = " + getSelectedOption(mathdropdown).value);
     switch (opt.value) {
         case "manufacturer":
             fetch(url)
@@ -93,7 +90,6 @@ function searchFilter() {
                         var filterManufacturer = data.filter(function (data) {
                             return data.manufacturer === inputResult;
                         });
-                        console.log(filterManufacturer);
                         content.innerHTML = allCars(filterManufacturer);
                     });
             break;
@@ -117,7 +113,6 @@ function searchFilter() {
                                     console.log("An error has occured");
                             }
                         });
-                        console.log(filterManufacturer);
                         content.innerHTML = allCars(filterManufacturer);
                     });
             break;
@@ -128,7 +123,6 @@ function searchFilter() {
                         var filterManufacturer = data.filter(function (data) {
                             return data.model === inputResult;
                         });
-                        console.log(filterManufacturer);
                         content.innerHTML = allCars(filterManufacturer);
                     });
             break;
@@ -152,7 +146,6 @@ function searchFilter() {
                                     console.log("An error has occured");
                             }
                         });
-                        console.log(filterManufacturer);
                         content.innerHTML = allCars(filterManufacturer);
                     });
             break;
@@ -176,7 +169,6 @@ function searchFilter() {
                                     console.log("An error has occured");
                             }
                         });
-                        console.log(filterManufacturer);
                         content.innerHTML = allCars(filterManufacturer);
                     });
             break;
@@ -196,24 +188,37 @@ function getSelectedOption(option) {
     return opt;
 }
 
-
-function sortByYearv1() {
-    h1content.innerHTML = "";
-    h3content.innerHTML = "";
-    content.innerHTML = "";
-    let url = "https://frederiket.dk/ca1/api/cars/all";
-    //let url = "http://localhost:8080/ca1/api/cars/all";
-    fetch(url)
-            .then(res => res.json())
-            .then(data =>
-            {
-                content.innerHTML = allCars(data.sort(compareYearv1));
-            });
+function sortByYearv2() {
+    var array = [];
+    var headers = ["manufacturer", "year", "model", "price", "quantity"];
+//    $('#carstable th').each(function (index, item) {
+//        headers[index] = $(item).html();
+//    });
+    $('#carstable tr').has('td').each(function () {
+        var arrayItem = {};
+        $('td', $(this)).each(function (index, item) {
+            arrayItem[headers[index]] = $(item).html();
+        });
+        array.push(arrayItem);
+    });
+    switch (switchbutton) {
+        case false:
+            switchbutton = true;
+            content.innerHTML = allCars(array.sort(compareYear));
+            break;
+        case true:
+            switchbutton = false;
+            content.innerHTML = allCars(array.sort(compareYear).reverse());
+            break;
+        default:
+            console.log("An error has occured");
+            break;
+    }
 }
 
-function compareYearv1(a, b) {
-    const carA = a.year;
-    const carB = b.year;
+function compareYear(a, b) {
+    const carA = parseInt(a.year);
+    const carB = parseInt(b.year);
     let comparison = 0;
     if (carA > carB) {
         comparison = 1;
@@ -223,21 +228,35 @@ function compareYearv1(a, b) {
     return comparison;
 }
 
-function sortByModelNamev1() {
-    h1content.innerHTML = "";
-    h3content.innerHTML = "";
-    content.innerHTML = "";
-    let url = "https://frederiket.dk/ca1/api/cars/all";
-    //let url = "http://localhost:8080/ca1/api/cars/all";
-    fetch(url)
-            .then(res => res.json())
-            .then(data =>
-            {
-                content.innerHTML = allCars(data.sort(compareModelNamev1));
-            });
+function sortByModelNamev2() {
+    var array = [];
+    var headers = ["manufacturer", "year", "model", "price", "quantity"];
+//    $('#carstable th').each(function (index, item) {
+//        headers[index] = $(item).html();
+//    });
+    $('#carstable tr').has('td').each(function () {
+        var arrayItem = {};
+        $('td', $(this)).each(function (index, item) {
+            arrayItem[headers[index]] = $(item).html();
+        });
+        array.push(arrayItem);
+    });
+    switch (switchbutton) {
+        case false:
+            switchbutton = true;
+            content.innerHTML = allCars(array.sort(compareModelName));
+            break;
+        case true:
+            switchbutton = false;
+            content.innerHTML = allCars(array.sort(compareModelName).reverse());
+            break;
+        default:
+            console.log("An error has occured");
+            break;
+    }
 }
 
-function compareModelNamev1(a, b) {
+function compareModelName(a, b) {
     const carA = a.model.toUpperCase();
     const carB = b.model.toUpperCase();
     let comparison = 0;
@@ -249,24 +268,37 @@ function compareModelNamev1(a, b) {
     return comparison;
 }
 
-function sortByQuantityv1() {
-    h1content.innerHTML = "";
-    h3content.innerHTML = "";
-    content.innerHTML = "";
-    let url = "https://frederiket.dk/ca1/api/cars/all";
-    //let url = "http://localhost:8080/ca1/api/cars/all";
-    fetch(url)
-            .then(res => res.json())
-            .then(data =>
-            {
-                content.innerHTML = allCars(data.sort(compareQuantityv1));
-            });
+function sortByQuantityv2() {
+    var array = [];
+    var headers = ["manufacturer", "year", "model", "price", "quantity"];
+//    $('#carstable th').each(function (index, item) {
+//        headers[index] = $(item).html();
+//    });
+    $('#carstable tr').has('td').each(function () {
+        var arrayItem = {};
+        $('td', $(this)).each(function (index, item) {
+            arrayItem[headers[index]] = $(item).html();
+        });
+        array.push(arrayItem);
+    });
+    switch (switchbutton) {
+        case false:
+            switchbutton = true;
+            content.innerHTML = allCars(array.sort(compareQuantity));
+            break;
+        case true:
+            switchbutton = false;
+            content.innerHTML = allCars(array.sort(compareQuantity).reverse());
+            break;
+        default:
+            console.log("An error has occured");
+            break;
+    }
 }
 
-
-function compareQuantityv1(a, b) {
-    const carA = a.quantity;
-    const carB = b.quantity;
+function compareQuantity(a, b) {
+    const carA = parseInt(a.quantity);
+    const carB = parseInt(b.quantity);
     let comparison = 0;
     if (carA > carB) {
         comparison = 1;
@@ -276,23 +308,37 @@ function compareQuantityv1(a, b) {
     return comparison;
 }
 
-function sortByPricev1() {
-    h1content.innerHTML = "";
-    h3content.innerHTML = "";
-    content.innerHTML = "";
-    let url = "https://frederiket.dk/ca1/api/cars/all";
-    //let url = "http://localhost:8080/ca1/api/cars/all";
-    fetch(url)
-            .then(res => res.json())
-            .then(data =>
-            {
-                content.innerHTML = allCars(data.sort(comparePricev1));
-            });
+function sortByPricev2() {
+    var array = [];
+    var headers = ["manufacturer", "year", "model", "price", "quantity"];
+//    $('#carstable th').each(function (index, item) {
+//        headers[index] = $(item).html();
+//    });
+    $('#carstable tr').has('td').each(function () {
+        var arrayItem = {};
+        $('td', $(this)).each(function (index, item) {
+            arrayItem[headers[index]] = $(item).html();
+        });
+        array.push(arrayItem);
+    });
+    switch (switchbutton) {
+        case false:
+            switchbutton = true;
+            content.innerHTML = allCars(array.sort(comparePrice));
+            break;
+        case true:
+            switchbutton = false;
+            content.innerHTML = allCars(array.sort(comparePrice).reverse());
+            break;
+        default:
+            console.log("An error has occured");
+            break;
+    }
 }
 
-function comparePricev1(a, b) {
-    const carA = a.price;
-    const carB = b.price;
+function comparePrice(a, b) {
+    const carA = parseInt(a.price);
+    const carB = parseInt(b.price);
     let comparison = 0;
     if (carA > carB) {
         comparison = 1;
