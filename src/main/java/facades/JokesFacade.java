@@ -45,7 +45,7 @@ public class JokesFacade {
     public long getJokesCount() {
         EntityManager em = emf.createEntityManager();
         try {
-            long jokesCount = (long) em.createQuery("SELECT COUNT(l) FROM Lines l").getSingleResult();
+            long jokesCount = (long) em.createQuery("SELECT COUNT(j) FROM Jokes j").getSingleResult();
             return jokesCount;
         } finally {
             em.close();
