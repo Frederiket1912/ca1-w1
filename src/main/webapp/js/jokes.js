@@ -1,6 +1,5 @@
-//let url2 = "https://frederiket.dk/ca1/api/jokes/all";
-let url2 = "http://localhost:8080/ca1/api/jokes/all";
-let switchbutton = true;
+let url2 = "https://frederiket.dk/ca1/api/jokes/all";
+//let url2 = "http://localhost:8080/ca1/api/jokes/all";
 let alljokes;
 
 function loadJokesPage() {
@@ -39,7 +38,7 @@ function allJokes(jokes) {
 function createButtons() {
     let linksDiv = document.querySelector("#linksDiv");
     let b1 = "<button type=\"submit\" onclick=\"getRandomJoke()\">Random Joke</button>";
-    let filter = "<br><button type=\"submit\" onclick=\"loadFilter()\">Search by ID</button>";
+    let filter = "<br><button type=\"submit\" onclick=\"loadSearch()\">Search by ID</button>";
     linksDiv.innerHTML = b1 + filter;
 }
 
@@ -57,14 +56,3 @@ function loadFilter() {
 //            console.log("An error has occured");
 //    }
 //}
-
-function getSelectedOption(option) {
-    var opt;
-    for (var i = 0, len = option.options.length; i < len; i++) {
-        opt = option.options[i];
-        if (opt.selected === true) {
-            break;
-        }
-    }
-    return opt;
-}
