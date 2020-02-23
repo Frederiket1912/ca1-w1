@@ -24,6 +24,7 @@ public class ApplicationConfig extends Application {
         resources.add(rest.CarsResource.class);
         resources.add(rest.HeroResource.class);
         resources.add(rest.JokesResource.class);
+        
     }
     
 }

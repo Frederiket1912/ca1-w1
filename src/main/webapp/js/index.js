@@ -1,49 +1,29 @@
 //Constants for all DOM elements im manipulating
-const HEROPAGE = document.querySelector("#heroPage");
-const CONTENT = document.querySelector("#content");
+const GROUPPAGE = document.querySelector("#groupPage");
+const CONTENTS = document.querySelector("#content");
 
-
-
-function heroesToTable(heroes) {
-    var tableinfo = heroes.map(x => `<tr><td>  ${x.heroName} </td><td> ${x.intelligence} </td><td> ${x.strength} </td>
-    <td>  ${x.speed} </td><td> ${x.durability} </td><td> ${x.power} </td>
-    <td>  ${x.combat} </td><td> ${x.publisher} </td></tr>`);
-
-    tableinfo.unshift("<table id=\"indextable\" class=\"table\">\n\
-    <tr><th onclick=\"sortByLetters(0)\">Hero Name</th>\n\
-    <th onclick=\"sortByNumbers(1)\">Intelligence</th>\n\
-    <th onclick=\"sortByNumbers(2)\">Strength</th>\n\
-    <th onclick=\"sortByNumbers(3)\">Speed</th>\n\
-    <th onclick=\"sortByNumbers(4)\">Durability</th>\n\
-    <th onclick=\"sortByNumbers(5)\">Power</th>\n\
-    <th onclick=\"sortByNumbers(6)\">Combat</th>\n\
-    <th onclick=\"sortByLetters(7)\">Publisher</th></tr>");
-
-    tableinfo.push("</table>");
-    return tableinfo.join('');
+function groupMembersToTable() {
+    var tableinfo = `<table id=indextable class=table>
+    <tr><th onclick=sortByLetters(0)>Name</th>
+    <th onclick=sortByNumbers(1)>Student Id</th>
+    <tr><td>  Frederik Thorup </td><td> cph-ft36 </td></tr>
+    <tr><td>  Frederik Braagaard </td><td> cph-fb87 </td></tr>
+    <tr><td>  Malthe Woschek </td><td> cph-mw202 </td></tr>
+    </table>`;
+    return tableinfo;
 }
 
-function makeHeroContent(e) {
+function makeGroupMemberContent(e){
     e.preventDefault();
-    let url = "/ca1/api/hero/all";
     let h1content = document.querySelector("#h1content");
     let h3content = document.querySelector("#h3content");
     let linksDiv = document.querySelector("#linksDiv");
     //Clear existing content
     h1content.innerHTML = "";
     h3content.innerHTML = "";
-    CONTENT.innerHTML = "";
+    CONTENTS.innerHTML = "";
     linksDiv.innerHTML = "";
-    fetch(url)
-            .then(res => res.json()) //in flow1, just do it
-            .then(data => {
-                // Inside this callback, and only here, the response data is available
-                console.log("data", data);
-                CONTENT.innerHTML = heroesToTable(data);               
-                /* data now contains the response, converted to JavaScript
-                 Observe the output from the log-output above
-                 Now, just build your DOM changes using the data*/
-            });
+    CONTENTS.innerHTML = groupMembersToTable();
 }
 
 function sortByLetters(n) {
@@ -156,9 +136,6 @@ function sortByNumbers(n) {
     }
 }
 
+
 //Eventlisteners
-
-HEROPAGE.addEventListener("click", makeHeroContent);
-
-
-
+    GROUPPAGE.addEventListener("click", makeGroupMemberContent);
