@@ -6,7 +6,7 @@
     <class>entities.RenameMe</class>
     <class>entities.Hero</class>
     <class>entities.Cars</class>
-    <class>entities.Lines</class>
+    <class>entities.Jokes</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <!-- DO NOT remove the line below. It's not set by the  entityUtils.EMF_Creator -->

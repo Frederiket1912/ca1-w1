@@ -7,7 +7,6 @@ package facades;
 
 import dto.HeroDTO;
 import entities.Hero;
-import entities.RenameMe;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

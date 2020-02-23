@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder;
 import entities.Cars;
 import facades.CarsFacade;
 import utils.EMF_Creator;
-import facades.FacadeExample;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;

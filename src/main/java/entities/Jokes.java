@@ -19,37 +19,37 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Malthe
  */
 @Entity
-@NamedQuery(name = "Lines.deleteAllRows", query = "DELETE from Lines")
-public class Lines implements Serializable {
+@NamedQuery(name = "Jokes.deleteAllRows", query = "DELETE from Jokes")
+public class Jokes implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String line;
+    private String joke;
     
-    public Lines(String line) {
-        this.line = line;
+    public Jokes(String joke) {
+        this.joke = joke;
     }
 
-    public Lines() {
+    public Jokes() {
     }
 
     public Long getId() {
         return id;
     }
 
-    public String getLine() {
-        return line;
+    public String getJoke() {
+        return joke;
     }
 
-    public void setLine(String line) {
-        this.line = line;
+    public void setJoke(String joke) {
+        this.joke = joke;
     }
 
     @Override
     public String toString() {
-        return "entities.Lines[ id=" + id + " pickupline=" + line + " ]";
+        return "Jokes{" + "id=" + id + ", joke=" + joke + '}';
     }
     
 }
