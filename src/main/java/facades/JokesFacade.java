@@ -11,10 +11,6 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import utils.EMF_Creator;
 
-/**
- *
- * Rename Class to a relevant name Add add relevant facade methods
- */
 public class JokesFacade {
 
     private static JokesFacade instance;

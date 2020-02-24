@@ -42,7 +42,7 @@ function createButtons2() {
     linksDivs.innerHTML = b1 + filter2;
 }
 
-function randomJoke(joke) {
+function randomJoke() {
     let arraySize = alljokes.length;
     let randomNum = Math.floor(Math.random() * arraySize);
     let arrayPick = alljokes[randomNum];
@@ -51,20 +51,27 @@ function randomJoke(joke) {
     let randomTable = "<table id=\"jokestable\"<table class=\"table\"><tr><th>Joke</th></tr>" +
             `<tr><td>${arrayPick.joke}</td></tr>`
             + "</table>";
+    console.log(randomTable);
     content.innerHTML = randomTable;
 }
 
 function loadSearch() {
     let linksDiv = document.querySelector("#linksDiv");
-    let inputfield = "<input type=\"number\" name=\"fieldvalue\" id=\"field\" required />";
-    let searchbutton = "<button type=\"submit\" onclick=\"searchFilter()\" >Search</button>";
+    let inputfield = "<input type=\"number\" name=\"fieldvalue\" id=\"field\" placeholder=\"0-59\" required />";
+    let searchbutton = "<button type=\"submit\" onclick=\"searchJoke()\" >Search</button>";
     let searchbar = inputfield + searchbutton;
     linksDiv.innerHTML = searchbar;
 }
 
-//function searchFilter() {
-//    let id = document.getElementById('inputfield').value;
-//        default:
-//            console.log("An error has occured");
-//    }
-//}
+function searchJoke() {
+    let searchId = document.getElementById('field').value;
+    let searchJoke = alljokes[searchId];
+    console.log(searchJoke);
+    
+    let searchTable = "<table id=\"jokestable\"<table class=\"table\"><tr><th>Joke</th></tr>" +
+            `<tr><td>${searchJoke.joke}</td></tr>`
+            + "</table>";
+    console.log(searchTable);
+    content.innerHTML = searchTable;
+    
+}
